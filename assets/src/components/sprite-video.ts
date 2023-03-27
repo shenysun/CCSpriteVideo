@@ -90,6 +90,7 @@ export class SpriteVideo extends Component {
         }
     }
 
+    private _preSpriteFrame: SpriteFrame;
     private drawSpriteFrame() {
         let cw = this._impl.video.clientWidth,
             ch = this._impl.video.clientHeight;
@@ -148,6 +149,8 @@ export class SpriteVideo extends Component {
         }
 
         this._context.drawImage(this._impl.video, sx, sy, sw, sh, dx, dy, dw, dh);
-        this.sprite.spriteFrame = SpriteFrame.createWithImage(this._canvas);
+        if (this._preSpriteFrame) this._preSpriteFrame.texture.destroy();
+        let spriteFrame = SpriteFrame.createWithImage(this._canvas);
+        this._preSpriteFrame = this.sprite.spriteFrame = spriteFrame;
     }
 }
